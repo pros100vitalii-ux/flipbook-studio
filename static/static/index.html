@@ -1,0 +1,73 @@
+<!doctype html>
+
+<html lang="ru">
+
+<head>
+
+<meta charset="utf-8">
+
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Flipbook Studio</title>
+
+<style>
+
+body{margin:0;padding:20px;background:#f3f4f6;color:#111827;font-family:Arial,sans-serif}
+
+main{max-width:700px;margin:auto}
+
+header,.card{background:white;padding:20px;margin-bottom:15px;border-radius:16px}
+
+header{background:#111827;color:white}
+
+h1{margin-top:0}
+
+label{display:block;font-weight:bold;margin:12px 0 8px}
+
+input,select,button{width:100%;padding:13px;margin-bottom:8px;border:1px solid #ccc;border-radius:10px;font-size:16px;box-sizing:border-box}
+
+button{background:#2563eb;color:white;border:0;font-weight:bold}
+
+p{line-height:1.5}
+
+</style>
+
+</head>
+
+<body>
+
+<main>
+
+<header>
+
+<h1>Flipbook Studio</h1>
+
+<p>Прототип превращения видео в карандашную анимацию на страницах настоящего блокнота.</p>
+
+</header>
+
+<section class="card">
+
+<label for="source">1. Исходное видео (до 30 секунд)</label>
+
+<input id="source" type="file" accept="video/*">
+
+<label for="template">2. Видео рук и блокнота</label>
+
+<input id="template" type="file" accept="video/*">
+
+<label for="style">3. Стиль</label>
+
+<select id="style"><option>Карандашный рисунок</option><option>Обычные кадры</option></select>
+
+<p>Это начальная версия интерфейса. Для обработки видео используется сервер приложения.</p>
+
+<button type="button" onclick="alert('Интерфейс создан. Следующий шаг — подключить обработку видео.')">Создать тестовый ролик</button>
+
+</section>
+
+</main>
+
+</body>
+
+</html>
