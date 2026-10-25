@@ -6,15 +6,26 @@ from fastapi import FastAPI, UploadFile, File, Form, HTTPException
 from fastapi.responses import FileResponse, HTMLResponse
 from fastapi.staticfiles import StaticFiles
 
-ROOT=Path(__file__).parent
+ROOT=Path(__file__).resolve().parent
 WORK=ROOT/"work"
 WORK.mkdir(exist_ok=True)
+
+# Accept either the correct path static/index.html or the accidental nested
+# path static/static/index.html created during mobile GitHub editing.
+STATIC_DIR=ROOT/"static"
+if not (STATIC_DIR/"index.html").is_file() and (STATIC_DIR/"static"/"index.html").is_file():
+    STATIC_DIR=STATIC_DIR/"static"
+
 app=FastAPI(title="Real Flipbook Prototype")
-app.mount("/static", StaticFiles(directory=ROOT/"static"), name="static")
+if STATIC_DIR.is_dir():
+    app.mount("/static", StaticFiles(directory=STATIC_DIR), name="static")
 
 @app.get("/", response_class=HTMLResponse)
 def home():
-    return (ROOT/"static"/"index.html").read_text(encoding="utf-8")
+    index=STATIC_DIR/"index.html"
+    if not index.is_file():
+        raise HTTPException(status_code=500, detail=f"Не найден файл интерфейса: {index}. Проверьте, что static/index.html загружен в GitHub.")
+    return index.read_text(encoding="utf-8")
 
 def run(cmd):
     p=subprocess.run(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
